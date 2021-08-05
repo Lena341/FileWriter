@@ -10,16 +10,16 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 
 {
-    setFixedSize(500,300);
-    setWindowTitle("File reader");
+    setFixedSize(500,300); //The size of the window
+    setWindowTitle("File Writer"); //The name of the window
     mainWidget=new QWidget;
     setCentralWidget(mainWidget);
     mainWidget->setFixedSize(this->width(), this->height());
-    mainLayout=new QVBoxLayout;
+    mainLayout=new QVBoxLayout; 
     mainWidget->setLayout(mainLayout);
 
     QHBoxLayout *editLayout=new QHBoxLayout;
-    mainLayout->addLayout(editLayout);
+    mainLayout->addLayout(editLayout); //I create the editLayout where the nameEdit, lastnameEdit and ageEdit will be.
     nameEdit=new QLineEdit;
     nameEdit->setPlaceholderText("Name");
     lastnameEdit=new QLineEdit;
@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     editLayout->addWidget(ageEdit);
 
     QHBoxLayout *buttonLayout=new QHBoxLayout;
-    mainLayout->addLayout(buttonLayout);
+    mainLayout->addLayout(buttonLayout); //I create the buttonLayout for the buttons
     addButton=new QPushButton;
     addButton->setText("Add person");
     addButton->setFixedSize(90,30);
@@ -51,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
     list=new QListWidget;
     mainLayout->addWidget(list);
 
-    connect(addButton,SIGNAL(clicked(bool)),this,SLOT(addSlot()));
+    connect(addButton,SIGNAL(clicked(bool)),this,SLOT(addSlot())); 
     connect(saveButton,SIGNAL(clicked(bool)),this,SLOT(saveSlot()));
     connect(clearButton,SIGNAL(clicked(bool)),this,SLOT(clearSlot()));
     connect(exitButton,SIGNAL(clicked(bool)),this,SLOT(exitSlot()));
@@ -67,19 +67,18 @@ void MainWindow::addSlot()
       Person p=people[i];
       if(p.getName()==nameEdit->text() && p.getLastName()==lastnameEdit->text() && p.getAge()==ageEdit->text().toInt())
       {
-         QMessageBox::warning(this,"Info","This person already exists");
+         QMessageBox::warning(this,"Information","This person already exists.");
          return;
       }
    }
    Person p(nameEdit->text(),lastnameEdit->text(),ageEdit->text().toInt());
-   people.append(p);
-   //people.append(new Person(nameEdit->text(),lastnameEdit->text(),ageEdit->text().toInt()));
-   list->addItem(people[people.size()-1].toString());
+   people.append(p); //I add people to the vector
+   list->addItem(people[people.size()-1].toString()); //And the person's information are shown in the list below the buttons.
 }
 
 void MainWindow::saveSlot()
 {
-    QString filename="people.txt";
+    QString filename="people.txt"; //The person's name, last name and age will be saved in people.txt file.
     if(filename.size()!=0)
     {
         QFile file(filename);
@@ -96,23 +95,6 @@ void MainWindow::saveSlot()
 
 }
 
-/*void MainWindow::loadData()
-{
-    QFile fp("");
-    if(!fp.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;
-    QTextStream st(&fp);
-    while(!st.atEnd())
-    {
-        QString line=st.readLine();
-        QStringList items=line.split(",");
-        Person p=new Person(items[0],items[1],items[2].toInt());
-        people.append(p);
-        list->addItem(p.toString());
-    }
-    fp.close();
-}*/
-
 void MainWindow::clearSlot()
 {
     nameEdit->clear();
@@ -127,6 +109,4 @@ void MainWindow::exitSlot()
     exitButton=messageBox.question(this,"Confirm","Are you sure you want to leave?",QMessageBox::Yes|QMessageBox::No);
     if(exitButton==QMessageBox::Yes)
         close();
-
-
 }
