@@ -10,8 +10,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 
 {
-    setFixedSize(500,300); //The size of the window
-    setWindowTitle("File Writer"); //The name of the window
+    setFixedSize(500,300); 
+    setWindowTitle("File Writer"); 
     mainWidget=new QWidget;
     setCentralWidget(mainWidget);
     mainWidget->setFixedSize(this->width(), this->height());
@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent)
     mainWidget->setLayout(mainLayout);
 
     QHBoxLayout *editLayout=new QHBoxLayout;
-    mainLayout->addLayout(editLayout); //I create the editLayout where the nameEdit, lastnameEdit and ageEdit will be.
+    mainLayout->addLayout(editLayout); 
     nameEdit=new QLineEdit;
     nameEdit->setPlaceholderText("Name");
     lastnameEdit=new QLineEdit;
@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     editLayout->addWidget(ageEdit);
 
     QHBoxLayout *buttonLayout=new QHBoxLayout;
-    mainLayout->addLayout(buttonLayout); //I create the buttonLayout for the buttons
+    mainLayout->addLayout(buttonLayout); 
     addButton=new QPushButton;
     addButton->setText("Add person");
     addButton->setFixedSize(90,30);
@@ -72,13 +72,13 @@ void MainWindow::addSlot()
       }
    }
    Person p(nameEdit->text(),lastnameEdit->text(),ageEdit->text().toInt());
-   people.append(p); //I add people to the vector
-   list->addItem(people[people.size()-1].toString()); //And the person's information are shown in the list below the buttons.
+   people.append(p); 
+   list->addItem(people[people.size()-1].toString()); 
 }
 
 void MainWindow::saveSlot()
 {
-    QString filename="people.txt"; //The person's name, last name and age will be saved in people.txt file.
+    QString filename="people.txt";
     if(filename.size()!=0)
     {
         QFile file(filename);
